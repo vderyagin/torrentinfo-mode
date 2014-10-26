@@ -16,9 +16,9 @@
                ((eq torrentinfo-detail-level 'minimal) "")
                (t (error "invalid detail level: %s" (symbol-name torrentinfo-detail-level)))))
         (file (shell-quote-argument file)))
-      (format "torrentinfo %s %s" flag file)))
+    (format "torrentinfo %s %s" flag file)))
 
-(defun torrentinfo-file-handler (operation file &optional visit beg end replace)
+(defun torrentinfo-file-handler (_ file &rest __)
   (setq buffer-file-name (expand-file-name file))
   (let ((info (shell-command-to-string (torrentinfo--cmd file))))
     (insert info)
