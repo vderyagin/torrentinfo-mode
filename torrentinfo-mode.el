@@ -1,4 +1,5 @@
 (require 'ansi-color)
+(require 'ido)
 
 (make-variable-buffer-local
  (defvar torrentinfo-detail-level 'files
