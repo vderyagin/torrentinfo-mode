@@ -6,10 +6,7 @@
    "Level of detail displayed about torrent file."))
 
 (define-derived-mode torrentinfo-mode fundamental-mode "TorrentInfo"
-  "Major mode for viewing information about torrent files."
-  (read-only-mode t)
-  (when (featurep 'hl-line)
-    (hl-line-mode)))
+  "Major mode for viewing information about torrent files.")
 
 (defun torrentinfo--cmd (file)
   "Command line to get information about FILE."
@@ -53,6 +50,8 @@
 (put 'torrentinfo-file-handler 'safe-magic t)
 (put 'torrentinfo-file-handler 'operations '(insert-file-contents))
 (add-to-list 'file-name-handler-alist '("\\.torrent\\'" . torrentinfo-file-handler))
+
+(add-hook 'torrentinfo-mode-hook 'hl-line-mode)
 
 (define-key torrentinfo-mode-map (kbd "p") 'previous-line)
 (define-key torrentinfo-mode-map (kbd "n") 'next-line)
