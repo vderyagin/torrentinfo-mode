@@ -1,9 +1,19 @@
 (require 'ansi-color)
 (require 'ido)
 
+(defgroup torrentinfo-mode nil
+  "Mode for viewing *.torrent files."
+  :prefix "torrentinfo-"
+  :group 'external)
+
 (make-variable-buffer-local
- (defvar torrentinfo-detail-level 'files
-   "Level of detail displayed about torrent file."))
+ (defcustom torrentinfo-detail-level 'files
+   "Level of detail displayed about torrent file."
+   :group 'torrentinfo-mode
+   :type '(radio
+           (const :tag "information about torrent + list of files" files)
+           (const :tag "only general information" minimal)
+           (const :tag "all information there is" everything))))
 
 (define-derived-mode torrentinfo-mode fundamental-mode "TorrentInfo"
   "Major mode for viewing information about torrent files.")
