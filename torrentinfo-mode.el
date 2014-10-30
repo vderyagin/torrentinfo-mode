@@ -1,3 +1,7 @@
+;;; torrentinfo-mode --- View information about torrent files -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
+
 (require 'ansi-color)
 (require 'ido)
 
