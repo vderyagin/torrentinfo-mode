@@ -10,17 +10,15 @@
   :prefix "torrentinfo-"
   :group 'external)
 
-(make-variable-buffer-local
- (defcustom torrentinfo-detail-level 'files
-   "Level of detail displayed about torrent file."
-   :group 'torrentinfo-mode
-   :type '(radio
-           (const :tag "information about torrent + list of files" files)
-           (const :tag "only general information" minimal)
-           (const :tag "all information there is" everything))))
+(defcustom torrentinfo-detail-level 'files
+  "Level of detail displayed about torrent file."
+  :group 'torrentinfo-mode
+  :type '(radio
+          (const :tag "information about torrent + list of files" files)
+          (const :tag "only general information" minimal)
+          (const :tag "all information there is" everything)))
 
-(define-derived-mode torrentinfo-mode fundamental-mode "TorrentInfo"
-  "Major mode for viewing information about torrent files.")
+(make-variable-buffer-local 'torrentinfo-detail-level)
 
 (defun torrentinfo--cmd (file)
   "Command line to get information about FILE."
@@ -64,6 +62,9 @@
 (put 'torrentinfo-file-handler 'safe-magic t)
 (put 'torrentinfo-file-handler 'operations '(insert-file-contents))
 (add-to-list 'file-name-handler-alist '("\\.torrent\\'" . torrentinfo-file-handler))
+
+(define-derived-mode torrentinfo-mode fundamental-mode "TorrentInfo"
+  "Major mode for viewing information about torrent files.")
 
 (add-hook 'torrentinfo-mode-hook 'hl-line-mode)
 
