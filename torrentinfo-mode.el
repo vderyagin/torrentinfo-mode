@@ -31,6 +31,8 @@
     (format "torrentinfo %s %s" flag file)))
 
 (defun torrentinfo-file-handler (_ file &rest __)
+  (unless (executable-find "torrentinfo")
+    (error "torrentinfo(1) appears to not be installed"))
   (setq buffer-file-name (expand-file-name file))
   (insert (torrentinfo--get-info file))
   (goto-char (point-min)))
