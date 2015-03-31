@@ -1,5 +1,15 @@
-;;; torrentinfo-mode --- View information about torrent files -*- lexical-binding: t -*-
+;;; torrentinfo-mode.el --- View information about torrent files -*- lexical-binding: t -*-
+
+;; Copyright (C) 2014-2015 Victor Deryagin
+
+;; Author: Victor Deryagin <vderyagin@gmail.com>
+;; Maintainer: Victor Deryagin <vderyagin@gmail.com>
+;; Created: 23 Oct 2014
+;; Version: 0.1
+;; Package-Requires: ()
+
 ;;; Commentary:
+
 ;;; Code:
 
 (require 'ansi-color)
@@ -80,4 +90,5 @@
 (add-to-list 'auto-mode-alist '("\\.torrent\\'" . torrentinfo-mode))
 
 (provide 'torrentinfo-mode)
+
 ;;; torrentinfo-mode.el ends here
