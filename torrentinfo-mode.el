@@ -63,6 +63,7 @@
 (put 'torrentinfo-file-handler 'operations '(insert-file-contents))
 (add-to-list 'file-name-handler-alist '("\\.torrent\\'" . torrentinfo-file-handler))
 
+;;;###autoload
 (define-derived-mode torrentinfo-mode fundamental-mode "TorrentInfo"
   "Major mode for viewing information about torrent files.")
 
@@ -73,6 +74,7 @@
 (define-key torrentinfo-mode-map (kbd "q") (lambda () (interactive) (kill-buffer (current-buffer))))
 (define-key torrentinfo-mode-map (kbd "<tab>") 'torrentinfo-change-detail-level)
 
+;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.torrent\\'" . torrentinfo-mode))
 
 (provide 'torrentinfo-mode)
