@@ -83,14 +83,12 @@
 (defun torrentinfo-file-handler (_ file &rest __)
   (unless (executable-find "torrentinfo")
     (error "torrentinfo(1) appears to not be installed"))
-  (setq buffer-file-name (expand-file-name file))
-  (insert (torrentinfo--get-info file))
-  (goto-char (point-min)))
+  (setq buffer-file-name (expand-file-name file)))
 
 ;;;###autoload
 (define-derived-mode torrentinfo-mode fundamental-mode "TorrentInfo"
   "Major mode for viewing information about torrent files."
-  (read-only-mode 1)
+  (torrentinfo--insert-info)
   (hl-line-mode)
   (message "Press <tab> to view file with different detail level"))
 
