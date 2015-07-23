@@ -30,14 +30,19 @@
 
 (make-variable-buffer-local 'torrentinfo-detail-level)
 
+(defmacro torrentinfo-with-detail-level (&rest clauses)
+  (declare (indent 0))
+  `(pcase torrentinfo-detail-level
+     ,@clauses
+     (_ (error "invalid detail level: %s" torrentinfo-detail-level))))
+
 (defun torrentinfo--cmd (file)
   "Command line to get information about FILE."
   (format "torrentinfo %s %s"
-          (pcase torrentinfo-detail-level
+          (torrentinfo-with-detail-level
             (`files "--files")
             (`everything "--everything")
-            (`minimal "")
-            (_ (error "invalid detail level: %s" torrentinfo-detail-level)))
+            (`minimal ""))
           (shell-quote-argument file)))
 
 (defun torrentinfo--get-info (file)
