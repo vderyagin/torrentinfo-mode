@@ -45,6 +45,16 @@
             (`minimal ""))
           (shell-quote-argument file)))
 
+(defun torrentinfo--next-detail-level ()
+  (torrentinfo-with-detail-level
+    (`files 'everything)
+    (`everything 'minimal)
+    (`minimal 'files)))
+
+(defun torrentinfo-next-detail-level (&optional select)
+  (interactive "P")
+  (torrentinfo-change-detail-level (unless select (torrentinfo--next-detail-level))))
+
 (defun torrentinfo--get-info (file)
   (ansi-color-apply (shell-command-to-string (torrentinfo--cmd file))))
 
@@ -81,14 +91,15 @@
 (define-derived-mode torrentinfo-mode fundamental-mode "TorrentInfo"
   "Major mode for viewing information about torrent files."
   (read-only-mode 1)
-  (hl-line-mode))
+  (hl-line-mode)
+  (message "Press <tab> to view file with different detail level"))
 
 (define-key torrentinfo-mode-map (kbd "p") 'previous-line)
 (define-key torrentinfo-mode-map (kbd "n") 'next-line)
 (define-key torrentinfo-mode-map (kbd "SPC") 'scroll-up-command)
 (define-key torrentinfo-mode-map (kbd "S-SPC") 'scroll-down-command)
 (define-key torrentinfo-mode-map (kbd "q") (lambda () (interactive) (kill-buffer (current-buffer))))
-(define-key torrentinfo-mode-map (kbd "<tab>") 'torrentinfo-change-detail-level)
+(define-key torrentinfo-mode-map (kbd "<tab>") 'torrentinfo-next-detail-level)
 
 ;;;###autoload
 (progn
