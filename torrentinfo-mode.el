@@ -77,7 +77,8 @@
   (insert (torrentinfo--get-info buffer-file-name))
   (goto-char (point-min))
   (read-only-mode 1)
-  (set-buffer-modified-p nil))
+  (set-buffer-modified-p nil)
+  (setq mode-line-process (format " %s" torrentinfo-detail-level)))
 
 ;;;###autoload
 (defun torrentinfo-file-handler (_ file &rest __)
