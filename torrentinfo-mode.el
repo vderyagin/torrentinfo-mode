@@ -20,7 +20,7 @@
   :prefix "torrentinfo-"
   :group 'external)
 
-(defcustom torrentinfo-detail-level 'files
+(defcustom torrentinfo-detail-level 'minimal
   "Level of detail displayed about torrent file."
   :group 'torrentinfo-mode
   :type '(radio
