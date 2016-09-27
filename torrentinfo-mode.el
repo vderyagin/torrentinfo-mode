@@ -5,7 +5,7 @@
 ;; Author: Victor Deryagin <vderyagin@gmail.com>
 ;; Maintainer: Victor Deryagin <vderyagin@gmail.com>
 ;; Created: 23 Oct 2014
-;; Version: 0.2
+;; Version: 0.2.1
 ;; Package-Requires: ()
 
 ;;; Commentary:
