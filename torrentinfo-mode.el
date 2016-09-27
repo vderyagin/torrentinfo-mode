@@ -13,7 +13,7 @@
 ;;; Code:
 
 (require 'ansi-color)
-(require 'ido)
+(require 'seq)
 
 (defgroup torrentinfo-mode nil
   "Mode for viewing *.torrent files."
@@ -51,25 +51,17 @@
     (`everything 'minimal)
     (`minimal 'files)))
 
-(defun torrentinfo-next-detail-level (&optional select)
-  (interactive "P")
-  (torrentinfo-change-detail-level (unless select (torrentinfo--next-detail-level))))
+(defun torrentinfo-next-detail-level ()
+  (interactive)
+  (torrentinfo-change-detail-level (torrentinfo--next-detail-level)))
 
 (defun torrentinfo--get-info (file)
   (ansi-color-apply (shell-command-to-string (torrentinfo--cmd file))))
 
-(defun torrentinfo-change-detail-level (&optional level)
-  (interactive)
-  (let ((new-level (or level (torrentinfo--select-detail-level))))
-    (unless (eq new-level torrentinfo-detail-level)
-      (setq torrentinfo-detail-level new-level)
-      (torrentinfo--insert-info))))
-
-(defun torrentinfo--select-detail-level ()
-  (intern
-   (ido-completing-read "Detail level: "
-                        (mapcar #'symbol-name
-                                '(files everything minimal)))))
+(defun torrentinfo-change-detail-level (level)
+  (unless (eq level torrentinfo-detail-level)
+    (setq torrentinfo-detail-level level)
+    (torrentinfo--insert-info)))
 
 (defun torrentinfo--insert-info ()
   (read-only-mode -1)
