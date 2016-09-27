@@ -93,13 +93,14 @@
   (hl-line-mode)
   (message "Press <tab> to view file with different detail level"))
 
-(seq-each (lambda (key cmd) (define-key torrentinfo-mode-map (kbd key) cmd))
-          '(("p"     #'previous-line)
-            ("n"     #'next-line)
-            ("SPC"   #'scroll-up-command)
-            ("S-SPC" #'scroll-down-command)
-            ("q"     (lambda () (interactive) (kill-buffer (current-buffer))))
-            ("<tab>" #'torrentinfo-next-detail-level)))
+(seq-each (pcase-lambda (`(,key . ,cmd))
+            (define-key torrentinfo-mode-map (kbd key) cmd))
+          '(("p"     . previous-line)
+            ("n"     . next-line)
+            ("SPC"   . scroll-up-command)
+            ("S-SPC" . scroll-down-command)
+            ("q"     . (lambda () (interactive) (kill-buffer (current-buffer))))
+            ("<tab>" . torrentinfo-next-detail-level)))
 
 ;;;###autoload
 (progn
